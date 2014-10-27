@@ -10,7 +10,7 @@
  * This software is licensed under the terms of the MIT License.
  * http://kjur.github.com/jsjws/license/
  *
- * The above copyright and license notice shall be 
+ * The above copyright and license notice shall be
  * included in all copies or substantial portions of the Software.
  */
 
@@ -149,7 +149,7 @@ KJUR.jws.JWS = function() {
      */
     this.verifyJWSByNE = function(sJWS, hN, hE) {
 	this.parseJWS(sJWS);
-	return _rsasign_verifySignatureWithArgs(this.parsedJWS.si, this.parsedJWS.sigvalBI, hN, hE);    
+	return _rsasign_verifySignatureWithArgs(this.parsedJWS.si, this.parsedJWS.sigvalBI, hN, hE);
     };
 
     /**
@@ -277,7 +277,7 @@ KJUR.jws.JWS = function() {
 	var sSI = _getSignatureInputByString(sHead, sPayload);
 	var hSigValue = _jws_generateSignatureValueBySI_NED(sHead, sPayload, sSI, hN, hE, hD);
 	var b64SigValue = hextob64u(hSigValue);
-	
+
 	this.parsedJWS = {};
 	this.parsedJWS.headB64U = sSI.split(".")[0];
 	this.parsedJWS.payloadB64U = sSI.split(".")[1];
@@ -363,11 +363,11 @@ KJUR.jws.JWS = function() {
  * @memberOf KJUR.jws.JWS
  * @function
  * @static
- * @param {String} alg JWS algorithm name to sign and force set to sHead or null 
+ * @param {String} alg JWS algorithm name to sign and force set to sHead or null
  * @param {String} sHead string of JWS Header
  * @param {String} sPayload string of JWS Payload
  * @param {String} key string of private key or key object to sign
- * @param {String} pass (OPTION)passcode to use encrypted private key 
+ * @param {String} pass (OPTION)passcode to use encrypted private key
  * @return {String} JWS signature string
  * @since jws 3.0.0
  * @see <a href="http://kjur.github.io/jsrsasign/api/symbols/KJUR.crypto.Signature.html">jsrsasign KJUR.crypto.Signature method</a>
@@ -395,7 +395,7 @@ KJUR.jws.JWS = function() {
  * <dd>salt length of RSAPSS signature is the same as the hash algorithm length
  * because of <a href="http://www.ietf.org/mail-archive/web/jose/current/msg02901.html">IETF JOSE ML discussion</a>.
  * <dt>NOTE2:
- * <dd>The reason of HS384 unsupport is  
+ * <dd>The reason of HS384 unsupport is
  * <a href="https://code.google.com/p/crypto-js/issues/detail?id=84">CryptoJS HmacSHA384 bug</a>.
  * </dl>
  */
@@ -427,17 +427,17 @@ KJUR.jws.JWS.sign = function(alg, sHeader, sPayload, key, pass) {
     } else {
 	sigAlg = ns1.jwsalg2sigalg[alg];
     }
-    
+
     var uHeader = utf8tob64u(sHeader);
     var uPayload = utf8tob64u(sPayload);
     var uSignatureInput = uHeader + "." + uPayload
-    
+
     // 4. sign
     var hSig = "";
     if (sigAlg.substr(0, 4) == "Hmac") {
 	if (key === undefined)
 	    throw "hexadecimal key shall be specified for HMAC";
-	var mac = new KJUR.crypto.Mac({'alg': sigAlg, 'pass': hextorstr(key)});
+	var mac = new KJUR.crypto.Mac({'alg': sigAlg, 'pass': key});
 	mac.updateString(uSignatureInput);
 	hSig = mac.doFinal();
     } else if (sigAlg.indexOf("withECDSA") != -1) {
@@ -598,7 +598,7 @@ KJUR.jws.JWS.readSafeJSONString = function(s) {
  * @function
  * @static
  * @param {String} sJWS JWS signature string to be verified
- * @return {String} string of Encoded Signature Value 
+ * @return {String} string of Encoded Signature Value
  * @throws if sJWS is not comma separated string such like "Header.Payload.Signature".
  */
 KJUR.jws.JWS.getEncodedSignatureValueFromJWS = function(sJWS) {
@@ -695,11 +695,11 @@ KJUR.jws.IntDate.intDate2UTCString = function(intDate) {
  */
 KJUR.jws.IntDate.intDate2Zulu = function(intDate) {
     var d = new Date(intDate * 1000);
-    var year = ("0000" + d.getUTCFullYear()).slice(-4);    
-    var mon =  ("00" + (d.getUTCMonth() + 1)).slice(-2);    
-    var day =  ("00" + d.getUTCDate()).slice(-2);    
-    var hour = ("00" + d.getUTCHours()).slice(-2);    
-    var min =  ("00" + d.getUTCMinutes()).slice(-2);    
-    var sec =  ("00" + d.getUTCSeconds()).slice(-2);    
+    var year = ("0000" + d.getUTCFullYear()).slice(-4);
+    var mon =  ("00" + (d.getUTCMonth() + 1)).slice(-2);
+    var day =  ("00" + d.getUTCDate()).slice(-2);
+    var hour = ("00" + d.getUTCHours()).slice(-2);
+    var min =  ("00" + d.getUTCMinutes()).slice(-2);
+    var sec =  ("00" + d.getUTCSeconds()).slice(-2);
     return year + mon + day + hour + min + sec + "Z";
 };
