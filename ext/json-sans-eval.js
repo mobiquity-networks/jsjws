@@ -238,3 +238,7 @@ var jsonParse = (function () {
     return result;
   };
 })();
+
+if (module && module.exports) {
+  module.exports = exports = jsonParse;
+}

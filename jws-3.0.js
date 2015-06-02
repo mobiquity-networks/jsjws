@@ -1,3 +1,27 @@
+if (require !== undefined) {
+
+  if (!b64utoutf8) {
+    var b64utoutf8 = require('jsrsasign').b64utoutf8;
+  }
+  if (!b64utohex) {
+    var b64utohex = require('jsrsasign').b64utohex;
+  }
+  if (!utf8tob64u) {
+    var utf8tob64u = require('jsrsasign').utf8tob64u;
+  }
+  if (!b64utob64) {
+    var b64utob64 = require('jsrsasign').b64utob64;
+  }
+  if (!hextob64u) {
+    var hextob64u = require('jsrsasign').hextob64u;
+  }
+
+  if (!jsonParse) {
+    var jsonParse = require('./ext/json-sans-eval').jsonParse;
+  }
+}
+
+
 /*! jws-3.0.2 (c) 2013 Kenji Urushima | kjur.github.com/jsjws/license
  */
 /*
@@ -23,7 +47,7 @@
  * @license <a href="http://kjur.github.io/jsjws/license/">MIT License</a>
  */
 
-if (typeof KJUR == "undefined" || !KJUR) KJUR = {};
+if (typeof KJUR == "undefined" || !KJUR) var KJUR = {};
 if (typeof KJUR.jws == "undefined" || !KJUR.jws) KJUR.jws = {};
 
 /**
@@ -273,7 +297,7 @@ KJUR.jws.JWS = function() {
      * @deprecated from 3.0.0 please move to {@link KJUR.jws.JWS.sign}
      */
     this.generateJWSByNED = function(sHead, sPayload, hN, hE, hD) {
-	if (! this.isSafeJSONString(sHead)) throw "JWS Head is not safe JSON string: " + sHead;
+	if (! this.isSafeJSONString(sHead)) throw "JWS Head is not safe JSON string: " + sHeader;
 	var sSI = _getSignatureInputByString(sHead, sPayload);
 	var hSigValue = _jws_generateSignatureValueBySI_NED(sHead, sPayload, sSI, hN, hE, hD);
 	var b64SigValue = hextob64u(hSigValue);
@@ -703,3 +727,7 @@ KJUR.jws.IntDate.intDate2Zulu = function(intDate) {
     var sec =  ("00" + d.getUTCSeconds()).slice(-2);
     return year + mon + day + hour + min + sec + "Z";
 };
+
+if (module && module.exports !== undefined) {
+  module.exports = exports = KJUR;
+}

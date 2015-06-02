@@ -1,0 +1,25 @@
+{
+  "name": "jsjws",
+  "version": "0.0.0",
+  "description": "jsjws =====",
+  "main": "jws-3.0.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mobiquity-networks/jsjws.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mobiquity-networks/jsjws/issues"
+  },
+  "homepage": "https://github.com/mobiquity-networks/jsjws",
+  "dependencies": {
+    "jsrsasign": "0.0.3"
+  }
+}
